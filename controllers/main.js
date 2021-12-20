@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
-const CustomAPIError = require("../errors/custom-error");
+const { BadRequestError } = require("../errors");
 
 const login = async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    throw new CustomAPIError("Username and password are required", 400);
+    throw new BadRequestError("Username and password are required");
   }
 
   const id = new Date().getDate();
@@ -18,7 +18,6 @@ const login = async (req, res) => {
 };
 
 const dashboard = async (req, res) => {
-  console.log(req.user);
   const luckyNumber = Math.floor(Math.random() * 100);
 
   res.status(200).json({
